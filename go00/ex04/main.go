@@ -13,7 +13,7 @@ func errorPrint(s string) {
 
 func main() {
 	if len(os.Args) != 2 {
-		errorPrint("usage: ./ex04 <celsiu>\ngo run maing.go <celsius>")
+		errorPrint("usage: ./ex04 <celsiu>\ngo run main.go <celsius>")
 	}
 
 	celsius, err := strconv.ParseFloat(os.Args[1], 64)
