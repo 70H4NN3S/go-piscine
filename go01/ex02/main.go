@@ -34,11 +34,12 @@ func main() {
 func recursivePOW(value, exp int64) int64 {
 	if exp < 1 {
 		return 1
-	} else if exp == 1 {
-		return value
-	} else {
-		return value * recursivePOW(value, exp-1)
 	}
+	if exp%2 == 0 {
+		half := recursivePOW(value, exp/2)
+		return half * half
+	}
+	return value * recursivePOW(value, exp-1)
 }
 
 func printErr(err error) {
