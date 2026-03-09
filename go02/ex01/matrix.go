@@ -28,6 +28,25 @@ func Transpose(m [][]float64) [][]float64 {
 	return t
 }
 
+func MatMul(a, b [][]float64) ([][]float64, error) {
+	if len(a[0]) != len(b) {
+		return nil, fmt.Errorf("To multiply AxB, the number of columns in A must equal the number of rows in B.")
+	}
+	mRows := len(a)
+	mCols := len(b[0])
+	m := NewMatrix(mRows, mCols)
+	for i := range mRows {
+		for j := range mCols {
+			sum := 0.0
+			for k := range b {
+				sum += a[i][k] * b[k][j]
+			}
+			m[i][j] = sum
+		}
+	}
+	return m, nil
+}
+
 func PrintMatrix(m [][]float64) {
 	for range m[0] {
 		fmt.Print("--")
