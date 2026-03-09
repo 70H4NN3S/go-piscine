@@ -36,3 +36,7 @@ func (ll List) Peek() (int, bool) {
 	}
 	return ll.Head.Val, true
 }
+
+func (ll List) Len() int {
+	return ll.size
+}
