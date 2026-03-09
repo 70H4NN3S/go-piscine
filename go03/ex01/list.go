@@ -47,12 +47,35 @@ func (ll List) String() string {
 	if ll.Head == nil {
 		return "nil"
 	}
+	if ll.Head.Next == nil {
+		return strconv.Itoa(ll.Head.Val) + " -> nil"
+	}
 	return strconv.Itoa(ll.Head.Val) + stringRecursive(*ll.Head.Next)
 }
 
 func stringRecursive(n Node) string {
 	if n.Next == nil {
-		return " -> nil"
+		return " -> " + strconv.Itoa(n.Val) + " -> nil"
 	}
 	return " -> " + strconv.Itoa(n.Val) + stringRecursive(*n.Next)
+}
+
+func (ll *List) Reverse() {
+	if ll.Head == nil {
+		return
+	}
+	if ll.Head.Next == nil {
+		return
+	}
+	ll.Head = ll.Head.reverseRecursive(nil)
+}
+
+func (n *Node) reverseRecursive(prev *Node) *Node {
+	if n.Next == nil {
+		n.Next = prev
+		return n
+	}
+	nextNode := n.Next
+	n.Next = prev
+	return nextNode.reverseRecursive(n)
 }
