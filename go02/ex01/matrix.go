@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func NewMatrix(rows, cols int) [][]float64 {
 	m := make([][]float64, rows)
 	for i := range m {
@@ -11,4 +13,15 @@ func NewMatrix(rows, cols int) [][]float64 {
 		}
 	}
 	return m
+}
+
+func PrintMatrix(m [][]float64) {
+	for range m[0] {
+		fmt.Print("--")
+	}
+	fmt.Print("-\n")
+
+	for i := range m {
+		fmt.Println(m[i])
+	}
 }
