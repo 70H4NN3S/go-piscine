@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 type Rectangle struct {
 	Width  float64
@@ -10,6 +13,13 @@ type Rectangle struct {
 func (r Rectangle) Area() float64      { return r.Width * r.Height }
 func (r Rectangle) Perimeter() float64 { return r.Width*2 + r.Height*2 }
 func (r Rectangle) IsSquare() bool     { return r.Height == r.Width }
+func (r Rectangle) PrettyPrint() {
+	fmt.Printf("The Reactangle has:\n")
+	fmt.Printf("Width: %0.2f; Height: %0.2f\n", r.Width, r.Height)
+	fmt.Printf("An area of %0.2f\n", r.Area())
+	fmt.Printf("A perimeter of %0.2f\n", r.Perimeter())
+	fmt.Printf("Is the Rectangle a square: %t\n\n", r.IsSquare())
+}
 
 type Circle struct {
 	Radius float64
@@ -17,6 +27,12 @@ type Circle struct {
 
 func (c Circle) Area() float64          { return c.Radius * c.Radius * math.Pi }
 func (c Circle) Circumference() float64 { return 2 * c.Radius * math.Pi }
+func (c Circle) PrettyPrint() {
+	fmt.Println("The Circle has:")
+	fmt.Printf("A radius of: %0.2f\n", c.Radius)
+	fmt.Printf("An area of: %0.2f\n", c.Area())
+	fmt.Printf("A circumference of: %0.2f\n\n", c.Circumference())
+}
 
 type Triangle struct {
 	A float64
@@ -48,4 +64,11 @@ func (t Triangle) IsValid() bool {
 	default:
 		return true
 	}
+}
+
+func (t Triangle) PrettyPrint() {
+	fmt.Println("The Triangle has:")
+	fmt.Printf("A: %0.2f; B: %0.2f; C: %0.2f\n", t.A, t.B, t.C)
+	fmt.Printf("An area of: %0.2f\n", t.Area())
+	fmt.Printf("The Triangle is valid: %t\n\n", t.IsValid())
 }
