@@ -21,4 +21,6 @@ func main() {
 	}
 	linkedList.Reverse()
 	fmt.Println(linkedList.String())
+	fmt.Println("List contains the value 19: ", linkedList.Contains(19))
+	fmt.Println("List contains the value 18: ", linkedList.Contains(18))
 }

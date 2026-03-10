@@ -68,3 +68,12 @@ func (ll *List) Reverse() {
 	}
 	ll.Head = prev
 }
+
+func (ll *List) Contains(val int) bool {
+	for n := ll.Head; n != nil; n = n.Next {
+		if n.Val == val {
+			return true
+		}
+	}
+	return false
+}
