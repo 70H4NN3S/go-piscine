@@ -60,13 +60,13 @@ func (r *Registry) FindByID(id int) (*Student, bool) {
 }
 
 func (r *Registry) TopN(n int) []Student {
-	if r.nextID < n {
-		return nil
+	if len(r.students) < n {
+		n = len(r.students)
 	}
-	sort.Slice(r.students, func(i, j int) bool {
-		studentA, _ := r.FindByID(i)
-		studentB, _ := r.FindByID(j)
-		return studentA.Average() > studentB.Average()
+	sorted := make([]Student, len(r.students))
+	copy(sorted, r.students)
+	sort.Slice(sorted, func(i, j int) bool {
+		return sorted[i].Average() > sorted[j].Average()
 	})
-	return r.students[:n]
+	return sorted[:n]
 }
