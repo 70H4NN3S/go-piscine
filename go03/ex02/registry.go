@@ -51,7 +51,7 @@ func (r *Registry) FindByID(id int) (*Student, bool) {
 	if id < 0 || id >= r.nextID {
 		return nil, false
 	}
-	for i := 0; i < r.nextID; i++ {
+	for i := 0; i < len(r.students); i++ {
 		if id == r.students[i].ID {
 			return &r.students[i], true
 		}
