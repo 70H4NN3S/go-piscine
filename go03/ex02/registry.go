@@ -32,3 +32,22 @@ func (s Student) Grade() string {
 		return "F"
 	}
 }
+
+type Registry struct {
+	students []Student
+	nextID   int
+}
+
+func (r *Registry) Add(name string, grades ...float64) int {
+	student := Student{r.nextID, name, grades}
+	r.students = append(r.students, student)
+	r.nextID++
+	return student.ID
+}
+
+func (r *Registry) FindByID(id int) (*Student, bool) {
+	if id < 0 || id >= r.nextID {
+		return nil, false
+	}
+	return &r.students[id], true
+}
