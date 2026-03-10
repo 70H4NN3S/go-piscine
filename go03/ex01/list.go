@@ -1,6 +1,9 @@
 package main
 
-import "strconv"
+import (
+	"strconv"
+	"strings"
+)
 
 type Node struct {
 	Val  int
@@ -43,17 +46,15 @@ func (ll List) String() string {
 	if ll.Head == nil {
 		return "nil"
 	}
-	if ll.Head.Next == nil {
-		return strconv.Itoa(ll.Head.Val) + " -> nil"
+	var sb strings.Builder
+	for n := ll.Head; n != nil; n = n.Next {
+		sb.WriteString(strconv.Itoa(n.Val))
+		if n.Next != nil {
+			sb.WriteString(" -> ")
+		}
 	}
-	return strconv.Itoa(ll.Head.Val) + stringRecursive(*ll.Head.Next)
-}
-
-func stringRecursive(n Node) string {
-	if n.Next == nil {
-		return " -> " + strconv.Itoa(n.Val) + " -> nil"
-	}
-	return " -> " + strconv.Itoa(n.Val) + stringRecursive(*n.Next)
+	sb.WriteString(" -> nil")
+	return sb.String()
 }
 
 func (ll *List) Reverse() {
