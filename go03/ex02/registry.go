@@ -1,5 +1,7 @@
 package main
 
+import "sort"
+
 type Student struct {
 	ID     int
 	Name   string
@@ -49,5 +51,22 @@ func (r *Registry) FindByID(id int) (*Student, bool) {
 	if id < 0 || id >= r.nextID {
 		return nil, false
 	}
-	return &r.students[id], true
+	for i := 0; i < r.nextID; i++ {
+		if id == r.students[i].ID {
+			return &r.students[i], true
+		}
+	}
+	return nil, false
+}
+
+func (r *Registry) TopN(n int) []Student {
+	if r.nextID < n {
+		return nil
+	}
+	sort.Slice(r.students, func(i, j int) bool {
+		studentA, _ := r.FindByID(i)
+		studentB, _ := r.FindByID(j)
+		return studentA.Average() > studentB.Average()
+	})
+	return r.students[:n]
 }
