@@ -58,21 +58,13 @@ func (ll List) String() string {
 }
 
 func (ll *List) Reverse() {
-	if ll.Head == nil {
-		return
+	var prev *Node
+	curr := ll.Head
+	for curr != nil {
+		next := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = next
 	}
-	if ll.Head.Next == nil {
-		return
-	}
-	ll.Head = ll.Head.reverseRecursive(nil)
-}
-
-func (n *Node) reverseRecursive(prev *Node) *Node {
-	if n.Next == nil {
-		n.Next = prev
-		return n
-	}
-	nextNode := n.Next
-	n.Next = prev
-	return nextNode.reverseRecursive(n)
+	ll.Head = prev
 }
