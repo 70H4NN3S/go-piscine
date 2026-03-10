@@ -26,6 +26,9 @@ type Crypto struct {
 }
 
 func (c *CreditCard) Pay(amount float64) error {
+	if amount > c.Limit {
+		return errors.New("payment goes beyond limit")
+	}
 	if amount > c.Balance {
 		return errors.New("not enough balance in the credit card")
 	}
@@ -33,12 +36,12 @@ func (c *CreditCard) Pay(amount float64) error {
 	return nil
 }
 
-func (b BankTransfer) Pay(amount float64) error {
+func (b *BankTransfer) Pay(amount float64) error {
 	fmt.Println(b.String(), " succeeded payment")
 	return nil
 }
 
-func (b BankTransfer) String() string {
+func (b *BankTransfer) String() string {
 	return fmt.Sprintf("Owner: %s. IBAN: %s.", b.Owner, b.IBAN)
 }
 
