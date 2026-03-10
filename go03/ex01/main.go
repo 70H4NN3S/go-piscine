@@ -23,4 +23,5 @@ func main() {
 	fmt.Println(linkedList.String())
 	fmt.Println("List contains the value 19: ", linkedList.Contains(19))
 	fmt.Println("List contains the value 18: ", linkedList.Contains(18))
+	fmt.Println("The list as a slice:\n", linkedList.ToSlice())
 }

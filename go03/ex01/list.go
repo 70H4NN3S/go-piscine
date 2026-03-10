@@ -77,3 +77,11 @@ func (ll *List) Contains(val int) bool {
 	}
 	return false
 }
+
+func (ll *List) ToSlice() []int {
+	slice := make([]int, 0, ll.size)
+	for n := ll.Head; n != nil; n = n.Next {
+		slice = append(slice, n.Val)
+	}
+	return slice
+}
