@@ -13,11 +13,7 @@ type List struct {
 }
 
 func (ll *List) Push(val int) {
-	node := Node{val, nil}
-	if ll.size != 0 {
-		node.Next = ll.Head
-	}
-	ll.Head = &node
+	ll.Head = &Node{val, ll.Head}
 	ll.size++
 }
 
