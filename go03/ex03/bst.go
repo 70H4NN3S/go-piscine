@@ -48,7 +48,7 @@ func (b BST) Search(val int) bool {
 	return false
 }
 
-func (b BST) ToSlice() []int {
+func (b BST) InOrder() []int {
 	result := make([]int, 0)
 	stack := make([]*TreeNode, 0)
 	n := b.Root
