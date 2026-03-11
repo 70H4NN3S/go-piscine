@@ -96,11 +96,11 @@ func (b BST) PostOrder() []int {
 	n := b.Root
 
 	for n != nil || len(postOrder) != 0 {
-		if n.Left != nil {
+		if n.Left != nil && prev != n.Left && prev != n.Right {
 			prev = n
 			postOrder = append(postOrder, n)
 			n = n.Left
-		} else if n.Right != nil {
+		} else if n.Right != nil && n.Right != prev {
 			prev = n
 			postOrder = append(postOrder, n)
 			n = n.Right
@@ -111,11 +111,6 @@ func (b BST) PostOrder() []int {
 				break
 			}
 			n = postOrder[len(postOrder)-1]
-			if n.Left == prev {
-				n.Left = nil
-			} else {
-				n.Right = nil
-			}
 			postOrder = postOrder[:len(postOrder)-1]
 		}
 	}
