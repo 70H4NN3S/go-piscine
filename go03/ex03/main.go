@@ -15,4 +15,5 @@ func main() {
 
 	fmt.Println("In Order: ", bST.InOrder())
 	fmt.Println("Pre Order: ", bST.PreOrder())
+	fmt.Println("Post Order: ", bST.PostOrder())
 }
