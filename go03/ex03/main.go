@@ -13,5 +13,6 @@ func main() {
 	bST.Insert(8)
 	bST.Insert(7)
 
-	fmt.Println(bST.ToSlice())
+	fmt.Println("In Order: ", bST.InOrder())
+	fmt.Println("Pre Order: ", bST.PreOrder())
 }

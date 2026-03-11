@@ -68,3 +68,23 @@ func (b BST) InOrder() []int {
 	}
 	return result
 }
+
+func (b BST) PreOrder() []int {
+	result := make([]int, 0)
+	preOrder := make([]*TreeNode, 0)
+	n := b.Root
+	preOrder = append(preOrder, nil)
+
+	for n != nil || len(preOrder) != 0 {
+		for n != nil {
+			result = append(result, n.Val)
+			if n.Right != nil {
+				preOrder = append(preOrder, n.Right)
+			}
+			n = n.Left
+		}
+		n = preOrder[len(preOrder)-1]
+		preOrder = preOrder[:len(preOrder)-1]
+	}
+	return result
+}
