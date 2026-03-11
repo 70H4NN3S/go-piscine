@@ -38,3 +38,18 @@ func (b *BST) Insert(val int) {
 		}
 	}
 }
+
+func (b BST) Search(val int) bool {
+	for n := b.Root; n != nil; {
+		if n.Val == val {
+			return true
+		}
+		if n.Val > val {
+			n = n.Left
+		}
+		if n.Val < val {
+			n = n.Right
+		}
+	}
+	return false
+}
