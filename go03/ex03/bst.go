@@ -118,7 +118,7 @@ func (b BST) PostOrder() []int {
 }
 
 func (b BST) IsBST() bool {
-	return b.IsBalanced() && checkValuesOrder(b.Root)
+	return b.IsBalanced() && checkValuesOrder(b.Root, nil, nil)
 }
 
 func (b BST) IsBalanced() bool {
@@ -169,27 +169,18 @@ func recursiveHeight(node *TreeNode) int {
 	return 1 + rightSide
 }
 
-func checkValuesOrder(node *TreeNode) bool {
+func checkValuesOrder(node *TreeNode, min, max *int) bool {
 	if node == nil {
 		return true
 	}
-	if node.Left == nil && node.Right == nil {
-		return true
-	}
-	if node.Left == nil {
-		if node.Val >= node.Right.Val {
-			return false
-		}
-		return checkValuesOrder(node.Right)
-	}
-	if node.Right == nil {
-		if node.Left.Val >= node.Val {
-			return false
-		}
-		return checkValuesOrder(node.Left)
-	}
-	if node.Left.Val >= node.Val || node.Val >= node.Right.Val {
+
+	if min != nil && node.Val <= *min {
 		return false
 	}
-	return checkValuesOrder(node.Left) && checkValuesOrder(node.Right)
+	if max != nil && node.Val >= *max {
+		return false
+	}
+
+	return checkValuesOrder(node.Left, min, &node.Val) &&
+		checkValuesOrder(node.Right, &node.Val, max)
 }
