@@ -1,6 +1,9 @@
 package main
 
-import "io"
+import (
+	"io"
+	"unicode"
+)
 
 type UpperReader struct {
 	inner io.Reader
@@ -38,5 +41,23 @@ func (r ROT13Reader) Read(p []byte) (n int, err error) {
 	for i := 0; i < n; i++ {
 		p[i] = rot13byte(p[i])
 	}
-	return n, err
+	return
+}
+
+type WordCountReader struct {
+	inner  io.Reader
+	Count  int
+	inWord bool
+}
+
+func (w WordCountReader) Read(p []byte) (n int, err error) {
+	n, err = w.inner.Read(p)
+	for i := 0; i < n; i++ {
+		isSpace := unicode.IsSpace(rune(p[i]))
+		if !isSpace && !w.inWord {
+			w.Count++
+		}
+		w.inWord = !isSpace
+	}
+	return
 }
