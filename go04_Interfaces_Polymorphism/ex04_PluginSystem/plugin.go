@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -86,5 +87,14 @@ func (r Reverse) Run(args []string) error {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
 	fmt.Println(string(runes))
+	return nil
+}
+
+type Exit struct{}
+
+func (e Exit) Name() string { return "exit" }
+func (e Exit) Help() string { return "exit - quit the program" }
+func (e Exit) Run(args []string) error {
+	os.Exit(0)
 	return nil
 }

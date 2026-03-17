@@ -12,6 +12,7 @@ func main() {
 	r.Register(Echo{})
 	r.Register(Upper{})
 	r.Register(Reverse{})
+	r.Register(Exit{})
 
 	reader := bufio.NewReader(os.Stdin)
 	for {
