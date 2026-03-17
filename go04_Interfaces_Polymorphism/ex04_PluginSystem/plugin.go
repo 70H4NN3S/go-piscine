@@ -43,7 +43,11 @@ func (e Echo) Name() string { return "echo" }
 func (e Echo) Help() string { return "echo <text> - prints the text" }
 func (e Echo) Run(args []string) error {
 	if len(args) != 1 {
-		return fmt.Errorf("only one argument is allowed")
+		return fmt.Errorf("only one argument is allowed. Usage: %s", e.Help())
+	}
+	if args[0] == "-h" || args[0] == "--help" {
+		fmt.Println(e.Help())
+		return nil
 	}
 	fmt.Println(args[0])
 	return nil
@@ -55,7 +59,11 @@ func (u Upper) Name() string { return "upper" }
 func (u Upper) Help() string { return "upper <text> - prints the text in upper case" }
 func (u Upper) Run(args []string) error {
 	if len(args) < 1 {
-		return fmt.Errorf("needs at least one argument")
+		return fmt.Errorf("needs at least one argument. Usage: %s", u.Help())
+	}
+	if args[0] == "-h" || args[0] == "--help" {
+		fmt.Println(u.Help())
+		return nil
 	}
 	fmt.Println(strings.ToUpper(strings.Join(args, " ")))
 	return nil
@@ -67,7 +75,11 @@ func (r Reverse) Name() string { return "reverse" }
 func (r Reverse) Help() string { return "reverse <text> - prints the text in reverse form" }
 func (r Reverse) Run(args []string) error {
 	if len(args) != 1 {
-		return fmt.Errorf("needs exactly one argument")
+		return fmt.Errorf("needs exactly one argument. Usage: %s", r.Help())
+	}
+	if args[0] == "-h" || args[0] == "--help" {
+		fmt.Println(r.Help())
+		return nil
 	}
 	runes := []rune(args[0])
 	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
