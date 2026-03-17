@@ -48,3 +48,15 @@ func (e Echo) Run(args []string) error {
 	fmt.Println(args[0])
 	return nil
 }
+
+type Upper struct{}
+
+func (u Upper) Name() string { return "upper" }
+func (u Upper) Help() string { return "upper <text> - prints the text in upper case" }
+func (u Upper) Run(args []string) error {
+	if len(args) < 1 {
+		return fmt.Errorf("needs at least one argument")
+	}
+	fmt.Println(strings.ToUpper(strings.Join(args, " ")))
+	return nil
+}
