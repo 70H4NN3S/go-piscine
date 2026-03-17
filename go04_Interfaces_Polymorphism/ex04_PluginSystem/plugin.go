@@ -60,3 +60,19 @@ func (u Upper) Run(args []string) error {
 	fmt.Println(strings.ToUpper(strings.Join(args, " ")))
 	return nil
 }
+
+type Reverse struct{}
+
+func (r Reverse) Name() string { return "reverse" }
+func (r Reverse) Help() string { return "reverse <text> - prints the text in reverse form" }
+func (r Reverse) Run(args []string) error {
+	if len(args) != 1 {
+		return fmt.Errorf("needs exactly one argument")
+	}
+	runes := []rune(args[0])
+	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+		runes[i], runes[j] = runes[j], runes[i]
+	}
+	fmt.Println(string(runes))
+	return nil
+}
