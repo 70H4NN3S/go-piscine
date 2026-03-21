@@ -63,9 +63,13 @@ func (r *RateLimiter) Request() {
 }
 
 func main() {
-	r := NewRateLimiter(5, 10)
+	r := NewRateLimiter(10, 5)
 	go r.Increment()
 	for range 20 {
+		r.Request()
+	}
+	time.Sleep(2 * time.Second)
+	for range 15 {
 		r.Request()
 	}
 }
