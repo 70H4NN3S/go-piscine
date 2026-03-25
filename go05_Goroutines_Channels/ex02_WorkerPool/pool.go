@@ -43,6 +43,7 @@ func (p *Pool) Worker() {
 }
 
 func (p *Pool) Submit(job Job) {
+	p.Input <- job
 }
 
 func Results() <-chan Result {
