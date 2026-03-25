@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -17,15 +16,16 @@ type Result struct {
 }
 
 type Pool struct {
-	Input  chan Job
-	Result chan Result
-	wg     sync.WaitGroup
+	Input     chan Job
+	Result    chan Result
+	wg        sync.WaitGroup
+	processor func(Job) Result
 }
 
-func NewPool(workers int) *Pool {
+func NewPool(workers int, processor func(Job) Result) *Pool {
 	input := make(chan Job, 5)
 	result := make(chan Result, 5)
-	p := &Pool{input, result, sync.WaitGroup{}}
+	p := &Pool{input, result, sync.WaitGroup{}, processor}
 
 	for range workers {
 		p.wg.Add(1)
@@ -37,7 +37,8 @@ func NewPool(workers int) *Pool {
 func (p *Pool) Worker() {
 	defer p.wg.Done()
 	for job := range p.Input {
-		fmt.Println(job)
+		result := p.processor(job)
+		p.Result <- result
 	}
 }
 
