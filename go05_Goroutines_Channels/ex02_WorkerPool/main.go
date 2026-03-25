@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"time"
 )
 
 func submitSquareRoot(input int, pool *Pool) {
@@ -25,6 +26,8 @@ func main() {
 	}
 	pool := NewPool(5, squareRoot)
 
+	fmt.Println("### WORKER POOL STARTED ###")
+	t := time.Now()
 	go func() {
 		submitSquareRoot(50, pool)
 		pool.Stop()
@@ -38,4 +41,5 @@ func main() {
 			fmt.Printf("ID: %d; Output: %.2f\n", r.JobID, r.Output)
 		}
 	}
+	fmt.Println("### WORKER POOL FINISHED IN", time.Since(t), "###")
 }
