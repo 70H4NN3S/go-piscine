@@ -7,3 +7,10 @@ func Sum(arr []int) (res int) {
 	}
 	return
 }
+
+func SumAllInOne(numbersToSum ...[]int) (result int) {
+	for _, slice := range numbersToSum {
+		result += Sum(slice)
+	}
+	return
+}
