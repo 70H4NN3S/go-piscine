@@ -2,8 +2,8 @@
 package arrays
 
 func Sum(arr []int) (res int) {
-	for _, n := range arr {
-		res += n
+	for i := range arr {
+		res += arr[i]
 	}
 	return
 }
