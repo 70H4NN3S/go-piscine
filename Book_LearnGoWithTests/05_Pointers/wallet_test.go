@@ -1,15 +1,28 @@
 package wallet
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestWallet(t *testing.T) {
-	assertBalance := func(t *testing.T, wallet Wallet, want Bitcoin) {
+	assertBalance := func(t testing.TB, wallet Wallet, want Bitcoin) {
 		t.Helper()
 		got := wallet.Balance()
 		if got != want {
 			t.Errorf("got %s want %s", got, want)
+		}
+	}
+
+	assertError := func(t testing.TB, got error, want string) {
+		t.Helper()
+
+		if got == nil {
+			t.Fatal("Wanted an error but didn't got one")
+		}
+
+		if got.Error() != want {
+			t.Errorf("got %q want %q", got, want)
 		}
 	}
 	t.Run("balance", func(t *testing.T) {
@@ -32,11 +45,9 @@ func TestWallet(t *testing.T) {
 		startingBalance := Bitcoin(10)
 		wallet := Wallet{startingBalance}
 		err := wallet.Withdraw(Bitcoin(100))
+		errorString := fmt.Sprintf("only %s available. Can't withdraw %s", wallet.Balance(), Bitcoin(100))
 
+		assertError(t, err, errorString)
 		assertBalance(t, wallet, startingBalance)
-
-		if err == nil {
-			t.Errorf("Wanted an error but didn't got one")
-		}
 	})
 }
