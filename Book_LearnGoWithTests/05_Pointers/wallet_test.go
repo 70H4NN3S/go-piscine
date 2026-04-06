@@ -1,6 +1,8 @@
 package wallet
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestWallet(t *testing.T) {
 	wallet := Wallet{}
@@ -11,6 +13,6 @@ func TestWallet(t *testing.T) {
 	want := Bitcoin(10)
 
 	if got != want {
-		t.Errorf("got %d want %d", got, want)
+		t.Errorf("got %s want %s", got, want)
 	}
 }

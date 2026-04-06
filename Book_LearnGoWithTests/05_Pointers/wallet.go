@@ -1,7 +1,13 @@
 // Package wallet is a simple fintec pointer and errors demonstration
 package wallet
 
+import "fmt"
+
 type Bitcoin int
+
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
+}
 
 type Wallet struct {
 	balance Bitcoin
